@@ -6,5 +6,5 @@ export default function LivrosDoados() {
                 <h1>Livros doados</h1>
             </main>
         </>
-    )
+    );
 }

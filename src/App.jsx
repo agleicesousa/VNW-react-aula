@@ -1,6 +1,8 @@
 
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
+import './Components/GlobalStyle/globalStyle.scss';
+
 import Header from './Components/Header/header';
 import Home from './Pages/Home/home';
 import LivrosDoados from './Pages/LivrosDoados/livrosDoados';

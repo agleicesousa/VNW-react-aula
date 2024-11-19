@@ -6,5 +6,5 @@ export default function QueroDoar() {
                 <h1>Quero doar</h1>
             </main>
         </>
-    )
+    );
 }
