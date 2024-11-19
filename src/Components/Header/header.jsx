@@ -1,5 +1,5 @@
-// import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
+import { Link } from 'react-router-dom';
 import logoLivro from '../../assets/logoLivro.png'
 import lupa from '../../assets/lupa.png'
 
@@ -13,9 +13,9 @@ export default function Header() {
                 </section>
                 <nav>
                     <ul>
-                        <li><a href="#">Inicio</a></li>
-                        <li><a href="#">Livros Doados</a></li>
-                        <li><a href="#">Quero doar</a></li>
+                        <li><Link to='/'>Inicio</Link></li>
+                        <li><Link to='/livros-doados'>Livros Doados</Link></li>
+                        <li><Link to='/quero-doar'>Quero doar</Link></li>
                     </ul>
                 </nav>
                 <section>
