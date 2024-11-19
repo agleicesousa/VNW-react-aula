@@ -1,8 +1,10 @@
 
-export function QueroDoar() {
+export default function QueroDoar() {
     return (
-        <main>
-            <h1>Quero doar</h1>
-        </main>
+        <>
+            <main>
+                <h1>Quero doar</h1>
+            </main>
+        </>
     )
 }
