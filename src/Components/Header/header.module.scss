@@ -5,3 +5,19 @@
     align-items: center;
     height: 20vh;
 }
+
+.logoHeader {
+    display: flex;
+    width: 20%;
+    justify-content: space-around;
+    align-items: center;
+
+    img {
+        width: 20%;
+    }
+
+    h1 {
+        font-size: 30px;
+        color: #fff;
+    }
+}
