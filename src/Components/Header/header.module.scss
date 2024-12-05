@@ -1,83 +1,83 @@
 header {
-    background: linear-gradient(90deg, #001B2F 0%, #005695 100%);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    height: 20vh;
+  background: linear-gradient(90deg, #001b2f 0%, #005695 100%);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 20vh;
 }
 
 .logoHeader {
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
-    width: 20%;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  width: 20%;
 
-    h1 {
-        color: #FFF;
-        font-size: 30px;
-    }
+  h1 {
+    color: #fff;
+    font-size: 30px;
+  }
 }
 
 .navHeader {
-    width: 30%;
+  width: 30%;
 
-    ul {
-        display: flex;
-        justify-content: space-around;
-        list-style: none;
+  ul {
+    display: flex;
+    justify-content: space-around;
+    list-style: none;
+  }
+
+  .link {
+    color: #fff;
+    font-size: 20px;
+    text-decoration: none;
+
+    &:hover {
+      color: tomato;
     }
-
-    .link {
-        color: #fff;
-        font-size: 20px;
-        text-decoration: none;
-
-        &:hover{
-            color: tomato;
-        }
-    }
+  }
 }
 
 .barraDeBusca {
-    border: solid #fff;
-    width: 20%;
-    display: flex;
-    justify-content: space-around;
-    height: 6vh;
-    border-radius: 20px;
-    margin-right: 1%;
+  border: solid #fff;
+  width: 20%;
+  display: flex;
+  justify-content: space-around;
+  height: 6vh;
+  border-radius: 20px;
+  margin-right: 1%;
 
-    input {
-        background-color: transparent;
-        border: none;
-        width: 60%;
-        outline: none;
+  input {
+    background-color: transparent;
+    border: none;
+    width: 60%;
+    outline: none;
 
-        &::placeholder{
-            color: #fff;
-            font-size: 20px;
-        }
+    &::placeholder {
+      color: #fff;
+      font-size: 20px;
     }
+  }
 
-    button {
-        background-color: transparent;
-        border: none;
-        cursor: pointer;
-    }
+  button {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+  }
 }
 
-@media (max-width: 780px){
-    header {
-        flex-direction: column;
-        justify-content: space-evenly;
-    }
-    .logoHeader {
-        width: 90%;
-    }
-    .navHeader {
-        width: 95%;
-    }
-    .barraDeBusca {
-        display: none;
-    }
+@media (max-width: 780px) {
+  header {
+    flex-direction: column;
+    justify-content: space-evenly;
+  }
+  .logoHeader {
+    width: 90%;
+  }
+  .navHeader {
+    width: 95%;
+  }
+  .barraDeBusca {
+    display: none;
+  }
 }
