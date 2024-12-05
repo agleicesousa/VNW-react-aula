@@ -5,8 +5,8 @@ import './Components/GlobalStyle/globalStyle.scss';
 
 import Header from './Components/Header/header';
 import Home from './Pages/Home/home';
-import LivrosDoados from './Pages/LivrosDoados/livrosDoados';
-import QueroDoar from './Pages/QueroDoar/queroDoar';
+import LivrosDoados from './pages/livrosDoados/LivrosDoados';
+import QueroDoar from './pages/queroDoar/QueroDoar';
 import Footer from './Components/Footer/footer';
 
 export default function App() {
