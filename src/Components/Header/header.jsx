@@ -22,12 +22,12 @@ export default function Header() {
               </Link>
             </li>
             <li>
-              <Link className={s.link} to="/livrosdoados">
+              <Link className={s.link} to="/livros-doados">
                 Livros Doados
               </Link>
             </li>
             <li>
-              <Link className={s.link} to="/querodoar">
+              <Link className={s.link} to="/quero-doar">
                 Quero Doar
               </Link>
             </li>

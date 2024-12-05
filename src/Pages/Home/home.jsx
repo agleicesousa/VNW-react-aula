@@ -1,4 +1,4 @@
-import s from "./inicio.module.scss";
+import s from "./home.module.scss";
 import imagem1 from "../../assets/imagem1doacao.png";
 import imagem2 from "../../assets/imagem2doacao.png";
 import imagem3 from "../../assets/imagem3doacao.png";
