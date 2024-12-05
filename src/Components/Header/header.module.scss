@@ -1,5 +1,5 @@
-.header {
-    background: linear-gradient(90deg, #001b2f 0%, #005695 100%);
+header {
+    background: linear-gradient(90deg, #001B2F 0%, #005695 100%);
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -8,17 +8,13 @@
 
 .logoHeader {
     display: flex;
-    width: 20%;
-    justify-content: space-around;
     align-items: center;
-
-    img {
-        width: 20%;
-    }
+    justify-content: space-around;
+    width: 20%;
 
     h1 {
+        color: #FFF;
         font-size: 30px;
-        color: #fff;
     }
 }
 
@@ -33,28 +29,31 @@
 
     .link {
         color: #fff;
-        text-decoration: none;
         font-size: 20px;
+        text-decoration: none;
+
+        &:hover{
+            color: tomato;
+        }
     }
 }
 
 .barraDeBusca {
     border: solid #fff;
-    border-radius: 20px;
-    margin-right: 1%;
     width: 20%;
-    height: 6vh;
     display: flex;
     justify-content: space-around;
-    align-items: center;
+    height: 6vh;
+    border-radius: 20px;
+    margin-right: 1%;
 
     input {
         background-color: transparent;
         border: none;
         width: 60%;
-        height: 5vh;
-    
-        &::placeholder {
+        outline: none;
+
+        &::placeholder{
             color: #fff;
             font-size: 20px;
         }
@@ -64,5 +63,21 @@
         background-color: transparent;
         border: none;
         cursor: pointer;
+    }
+}
+
+@media (max-width: 780px){
+    header {
+        flex-direction: column;
+        justify-content: space-evenly;
+    }
+    .logoHeader {
+        width: 90%;
+    }
+    .navHeader {
+        width: 95%;
+    }
+    .barraDeBusca {
+        display: none;
     }
 }
