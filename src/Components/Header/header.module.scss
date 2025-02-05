@@ -4,17 +4,19 @@ header {
   justify-content: space-between;
   align-items: center;
   height: 20vh;
+  padding: 2%;
 }
 
 .logoHeader {
   display: flex;
   align-items: center;
   justify-content: space-around;
-  width: 20%;
+  width: 23%;
+  cursor: pointer;
 
   h1 {
     color: #fff;
-    font-size: 30px;
+    font-size: 24px;
   }
 }
 
@@ -40,7 +42,7 @@ header {
 
 .barraDeBusca {
   border: solid #fff;
-  width: 20%;
+  width: 26%;
   display: flex;
   justify-content: space-around;
   height: 6vh;
