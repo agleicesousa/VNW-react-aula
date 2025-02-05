@@ -1,11 +1,11 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-import "./components/globalStyle/globalStyle.scss";
+import "./Components/globalStyle/globalStyle.scss";
 
 import Header from "./Components/Header/Header";
 import Home from "./Pages/Home/Home";
-import LivrosDoados from "./pages/livrosDoados/LivrosDoados";
-import QueroDoar from "./pages/QueroDoar/QueroDoar";
+import LivrosDoados from "./Pages/LivrosDoados/LivrosDoados";
+import QueroDoar from "./Pages/QueroDoar/QueroDoar";
 import Footer from "./Components/Footer/Footer";
 
 export default function App() {
