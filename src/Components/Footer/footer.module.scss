@@ -6,11 +6,22 @@
   height: 15vh;
   color: #fff;
 
+  p {
+    font-size: 1.4rem;
+  }
+
   nav {
     width: 20%;
     display: flex;
     justify-content: space-between;
     align-items: center;
+
+    img {
+      &:hover {
+        cursor: pointer;
+        transform: scale(1.2);
+      }
+    }
   }
 }
 
