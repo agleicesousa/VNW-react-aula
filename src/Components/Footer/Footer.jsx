@@ -18,7 +18,7 @@ export default function Footer() {
             </a>
           </li>
           <li>
-            <a href="#" aria-label="Youtube">
+            <a href="#" aria-label="YouTube">
               <FaYoutube />
             </a>
           </li>
