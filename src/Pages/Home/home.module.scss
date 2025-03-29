@@ -1,3 +1,5 @@
+@use "../../Components/GlobalStyle/globalStyle" as *;
+
 .primeiraSessaoInicio {
   height: $section-height;
   background-image: url("../../assets/bannerInicio.png");

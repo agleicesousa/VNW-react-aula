@@ -1,3 +1,5 @@
+@use "../../Components/GlobalStyle/globalStyle" as *;
+
 .header {
   background: linear-gradient(135deg, #001b2f 0%, #003a6d 100%);
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
