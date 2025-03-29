@@ -54,10 +54,17 @@ header {
     border: none;
     width: 60%;
     outline: none;
+    color: #fff; /* Cor do texto digitado */
+    font-size: 20px; /* Tamanho do texto digitado */
 
     &::placeholder {
       color: #fff;
       font-size: 20px;
+      transition: opacity 0.3s ease; /* Transição suave para o placeholder */
+    }
+
+    &:focus::placeholder {
+      opacity: 0; /* Faz o placeholder desaparecer ao clicar */
     }
   }
 
