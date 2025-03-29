@@ -1,8 +1,18 @@
+// Variáveis globais
+$primary-color: #005695;
+$secondary-color: #0157944d;
+$white-color: #fff;
+$font-family: "Inter", sans-serif;
+$h2-font-size: 32px;
+$h2-mobile-font-size: 28px;
+$section-height: 75vh;
+$mobile-section-height: 50vh;
+
 * {
   padding: 0;
   margin: 0;
   box-sizing: border-box;
   list-style: none;
   text-decoration: none;
-  font-family: "Inter", sans-serif;
+  font-family: $font-family;
 }

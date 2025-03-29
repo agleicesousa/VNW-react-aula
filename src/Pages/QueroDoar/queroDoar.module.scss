@@ -11,7 +11,7 @@
 }
 
 form {
-  border: solid 3px #005695;
+  border: solid 3px $primary-color;
   border-radius: 20px;
   height: 70vh;
   width: 30%;
@@ -25,13 +25,13 @@ form {
     display: flex;
     justify-content: space-around;
     align-items: center;
-    color: #005695;
+    color: $primary-color;
   }
 
   input {
     width: 90%;
     height: 7vh;
-    border: solid #005695;
+    border: solid $primary-color;
     border-radius: 15px;
     padding-left: 20px;
     font-size: 1rem;
@@ -45,8 +45,8 @@ form {
 .buttonDoar {
   width: 50%;
   height: 8vh;
-  background-color: #005695;
-  color: #fff;
+  background-color: $primary-color;
+  color: $white-color;
   font-size: 24px;
   padding: 0;
   cursor: pointer;
