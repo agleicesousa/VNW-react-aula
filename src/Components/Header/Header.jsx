@@ -20,14 +20,9 @@ export default function Header() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const toggleMenu = () => {
-    setMenuOpen(!menuOpen);
-    if (searchOpen) setSearchOpen(false);
-  };
-
-  const toggleSearch = () => {
-    setSearchOpen(!searchOpen);
-    if (menuOpen) setMenuOpen(false);
+  const toggleMenuAndSearch = (menuState, searchState) => {
+    setMenuOpen(menuState);
+    setSearchOpen(searchState);
   };
 
   return (
@@ -36,8 +31,8 @@ export default function Header() {
         <section className={s.topRow}>
           <button 
             className={s.burgerMenu} 
-            onClick={toggleMenu}
-            aria-label="Menu"
+            onClick={() => toggleMenuAndSearch(!menuOpen, false)}
+            aria-label="Abrir menu"
             aria-expanded={menuOpen}
             aria-controls="main-navigation"
           >
@@ -62,7 +57,7 @@ export default function Header() {
             <li>
               <button
                 className={s.searchButton}
-                onClick={toggleSearch}
+                onClick={() => toggleMenuAndSearch(false, !searchOpen)}
                 aria-label="Buscar"
                 aria-expanded={searchOpen}
                 aria-controls="mobile-search"
@@ -83,7 +78,7 @@ export default function Header() {
               <Link 
                 className={`${s.link} ${isActive("/") ? s.activeLink : ""}`} 
                 to="/" 
-                onClick={toggleMenu}
+                onClick={() => setMenuOpen(false)}
                 aria-current={isActive("/") ? "page" : undefined}
               >
                 Início
@@ -93,7 +88,7 @@ export default function Header() {
               <Link
                 className={`${s.link} ${isActive("/livros-doados") ? s.activeLink : ""}`}
                 to="/livros-doados"
-                onClick={toggleMenu}
+                onClick={() => setMenuOpen(false)}
                 aria-current={isActive("/livros-doados") ? "page" : undefined}
               >
                 Livros Doados
@@ -103,7 +98,7 @@ export default function Header() {
               <Link
                 className={`${s.link} ${isActive("/quero-doar") ? s.activeLink : ""}`}
                 to="/quero-doar"
-                onClick={toggleMenu}
+                onClick={() => setMenuOpen(false)}
                 aria-current={isActive("/quero-doar") ? "page" : undefined}
               >
                 Quero Doar
@@ -129,7 +124,11 @@ export default function Header() {
         </section>
 
         {searchOpen && (
-          <section id="mobile-search" className={s.mobileSearch} aria-label="Barra de pesquisa móvel">
+          <section 
+            id="mobile-search" 
+            className={`${s.mobileSearch} ${searchOpen ? s.active : ""}`} 
+            aria-label="Barra de pesquisa móvel"
+          >
             <form role="search" onSubmit={(e) => e.preventDefault()}>
               <div className={s.barraDeBusca}>
                 <input
