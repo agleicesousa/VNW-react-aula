@@ -10,27 +10,30 @@ export default function Header() {
 
   return (
     <header>
-      {/* Ícone do menu burger */}
-      <div className={s.burgerMenu} onClick={() => setMenuOpen(!menuOpen)}>
-        <FaBars size={24} color="#fff" />
+      {/* Container para os elementos da linha superior no mobile */}
+      <div className={s.mobileTopRow}>
+        {/* Ícone do menu burger */}
+        <div className={s.burgerMenu} onClick={() => setMenuOpen(!menuOpen)}>
+          <FaBars size={24} color="#fff" />
+        </div>
+
+        {/* Logo */}
+        <section className={s.logoHeader}>
+          <img
+            src={logoLivro}
+            alt="Imagem de uma ilustração de um livro aberto com capa azul"
+          />
+          <h1>Livros Vai na Web</h1>
+        </section>
+
+        {/* Ícone da lupa */}
+        <button
+          className={s.searchButton}
+          onClick={() => setSearchOpen(!searchOpen)}
+        >
+          <FaSearch size={24} color="#fff" />
+        </button>
       </div>
-
-      {/* Logo */}
-      <section className={s.logoHeader}>
-        <img
-          src={logoLivro}
-          alt="Imagem de uma ilustração de um livro aberto com capa azul"
-        />
-        <h1>Livros Vai na Web</h1>
-      </section>
-
-      {/* Ícone da lupa */}
-      <button
-        className={s.searchButton}
-        onClick={() => setSearchOpen(!searchOpen)}
-      >
-        <FaSearch size={24} color="#fff" />
-      </button>
 
       {/* Menu de navegação */}
       <nav className={`${s.navHeader} ${menuOpen ? s.active : ""}`}>

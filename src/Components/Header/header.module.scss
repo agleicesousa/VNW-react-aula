@@ -5,6 +5,14 @@ header {
   align-items: center;
   height: 20vh;
   padding: 2%;
+  flex-wrap: wrap;
+}
+
+.mobileTopRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
 }
 
 .logoHeader {
@@ -22,7 +30,6 @@ header {
 
 .navHeader {
   width: 30%;
-
   ul {
     display: flex;
     justify-content: space-around;
@@ -54,17 +61,17 @@ header {
     border: none;
     width: 60%;
     outline: none;
-    color: #fff; /* Cor do texto digitado */
-    font-size: 20px; /* Tamanho do texto digitado */
+    color: #fff;
+    font-size: 20px;
 
     &::placeholder {
       color: #fff;
       font-size: 20px;
-      transition: opacity 0.3s ease; /* Transição suave para o placeholder */
+      transition: opacity 0.3s ease;
     }
 
     &:focus::placeholder {
-      opacity: 0; /* Faz o placeholder desaparecer ao clicar */
+      opacity: 0;
     }
   }
 
@@ -78,26 +85,50 @@ header {
 .burgerMenu {
   display: none;
   cursor: pointer;
+}
 
-  div {
-    width: 25px;
-    height: 3px;
-    background-color: #fff;
-    margin: 5px 0;
-  }
+.searchButton {
+  display: none;
+  background: transparent;
+  border: none;
+  cursor: pointer;
 }
 
 @media (max-width: 780px) {
   header {
-    flex-direction: row;
-    justify-content: space-between;
+    flex-direction: column;
+    justify-content: center;
     align-items: center;
     height: auto;
     padding: 10px;
   }
 
+  .mobileTopRow {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 10px;
+  }
+
+  .burgerMenu {
+    display: block;
+    order: 1;
+    flex: 0 0 auto;
+  }
+
   .logoHeader {
+    order: 2;
     width: auto;
+    flex: 1;
+    justify-content: center;
+    margin: 0 10px;
+  }
+
+  .searchButton {
+    display: block;
+    order: 3;
+    flex: 0 0 auto;
   }
 
   .navHeader {
@@ -138,9 +169,5 @@ header {
 
   .barraDeBusca.active {
     display: flex;
-  }
-
-  .burgerMenu {
-    display: block;
   }
 }
