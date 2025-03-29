@@ -91,3 +91,59 @@
     }
   }
 }
+
+.desktopSearch {
+  width: 26%;
+  
+  form {
+    display: block;
+    width: 100%;
+  }
+
+  .barraDeBusca {
+    border: 2px solid #fff;
+    display: flex;
+    justify-content: space-between;
+    height: 45px;
+    border-radius: 25px;
+    padding: 0 15px;
+    background: rgba(255, 255, 255, 0.1);
+    transition: all 0.3s ease;
+
+    &:focus-within {
+      border-color: #ff7e5f;
+      box-shadow: 0 0 0 2px rgba(255, 126, 95, 0.2);
+    }
+  }
+
+  .searchInput {
+    background: transparent;
+    border: none;
+    width: 85%;
+    outline: none;
+    color: #fff;
+    font-size: 16px;
+
+    &::placeholder {
+      color: rgba(255, 255, 255, 0.8);
+      transition: opacity 0.2s ease;
+    }
+
+    &:focus::placeholder {
+      opacity: 0;
+    }
+  }
+
+  .searchSubmit {
+    background: transparent;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+    padding: 0 5px;
+    transition: color 0.3s ease;
+
+    &:hover {
+      color: #ff7e5f;
+    }
+  }
+}
