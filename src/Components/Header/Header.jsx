@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { FaBars, FaSearch } from "react-icons/fa";
+import { FaBars, FaSearch, FaTimes } from "react-icons/fa";
 import logoLivro from "../../assets/logoLivro.png";
 import s from "./header.module.scss";
 
@@ -9,31 +9,38 @@ export default function Header() {
   const [searchOpen, setSearchOpen] = useState(false);
 
   return (
-    <header>
-      {/* Container para os elementos da linha superior no mobile */}
-      <div className={s.mobileTopRow}>
-        {/* Ícone do menu burger */}
-        <div className={s.burgerMenu} onClick={() => setMenuOpen(!menuOpen)}>
-          <FaBars size={24} color="#fff" />
-        </div>
-
-        {/* Logo */}
-        <section className={s.logoHeader}>
-          <img
-            src={logoLivro}
-            alt="Imagem de uma ilustração de um livro aberto com capa azul"
-          />
-          <h1>Livros Vai na Web</h1>
-        </section>
-
-        {/* Ícone da lupa */}
-        <button
-          className={s.searchButton}
-          onClick={() => setSearchOpen(!searchOpen)}
+    <header className={s.header}>
+      {/* Top Row - Mobile & Desktop */}
+      <section className={s.topRow}>
+        <button 
+          className={s.burgerMenu} 
+          onClick={() => setMenuOpen(!menuOpen)}
+          aria-label="Menu"
         >
-          <FaSearch size={24} color="#fff" />
+          {menuOpen ? <FaTimes size={24} /> : <FaBars size={24} />}
         </button>
-      </div>
+
+        <Link to="/" className={s.logoLink}>
+          <section className={s.logoHeader}>
+            <img
+              src={logoLivro}
+              alt="Logo Livros Vai na Web"
+              className={s.logoImage}
+            />
+            <h1 className={s.logoText}>Livros Vai na Web</h1>
+          </section>
+        </Link>
+
+        <div className={s.actions}>
+          <button
+            className={s.searchButton}
+            onClick={() => setSearchOpen(!searchOpen)}
+            aria-label="Buscar"
+          >
+            {searchOpen ? <FaTimes size={20} /> : <FaSearch size={20} />}
+          </button>
+        </div>
+      </section>
 
       {/* Menu de navegação */}
       <nav className={`${s.navHeader} ${menuOpen ? s.active : ""}`}>
@@ -64,17 +71,32 @@ export default function Header() {
         </ul>
       </nav>
 
-      {/* Barra de busca */}
-      <section
-        className={`${s.barraDeBusca} ${searchOpen ? s.active : ""}`}
-      >
-        <input
-          type="search"
-          placeholder="O que você procura?"
-        />
-        <button>
-          <FaSearch size={20} color="#fff" />
-        </button>
+      {/* Barra de busca - Desktop (sempre visível) */}
+      <section className={s.desktopSearch}>
+        <div className={s.barraDeBusca}>
+          <input
+            type="search"
+            placeholder="O que você procura?"
+            className={s.searchInput}
+          />
+          <button className={s.searchSubmit} type="submit">
+            <FaSearch size={16} />
+          </button>
+        </div>
+      </section>
+
+      {/* Barra de busca - Mobile (apenas quando aberta) */}
+      <section className={`${s.mobileSearch} ${searchOpen ? s.active : ""}`}>
+        <div className={s.barraDeBusca}>
+          <input
+            type="search"
+            placeholder="O que você procura?"
+            className={s.searchInput}
+          />
+          <button className={s.searchSubmit} type="submit">
+            <FaSearch size={16} />
+          </button>
+        </div>
       </section>
     </header>
   );
