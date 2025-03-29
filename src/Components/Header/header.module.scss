@@ -68,18 +68,72 @@ header {
   }
 }
 
+.burgerMenu {
+  display: none;
+  cursor: pointer;
+
+  div {
+    width: 25px;
+    height: 3px;
+    background-color: #fff;
+    margin: 5px 0;
+  }
+}
+
 @media (max-width: 780px) {
   header {
-    flex-direction: column;
-    justify-content: space-evenly;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    height: auto;
+    padding: 10px;
   }
+
   .logoHeader {
-    width: 90%;
+    width: auto;
   }
+
   .navHeader {
-    width: 95%;
+    display: none;
+    flex-direction: column;
+    background-color: #001b2f;
+    position: absolute;
+    top: 60px;
+    right: 10px;
+    width: 80%;
+    border-radius: 10px;
+    padding: 10px;
+
+    ul {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .link {
+      padding: 10px 0;
+    }
   }
+
+  .navHeader.active {
+    display: flex;
+  }
+
   .barraDeBusca {
     display: none;
+    position: absolute;
+    top: 60px;
+    left: 10px;
+    width: 80%;
+    background-color: #001b2f;
+    border-radius: 10px;
+    padding: 10px;
+  }
+
+  .barraDeBusca.active {
+    display: flex;
+  }
+
+  .burgerMenu {
+    display: block;
   }
 }
