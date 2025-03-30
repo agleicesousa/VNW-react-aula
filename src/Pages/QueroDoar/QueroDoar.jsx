@@ -47,13 +47,13 @@ export default function QueroDoar() {
   };
 
   return (
-    <section className={s.queroDoarSection}>
+    <section className={s.secaoQueroDoar}>
       <p>
         Por favor, preencha o formulário com suas informações e as informações
         do Livro
       </p>
-      <form className={s.donationForm} onSubmit={lidarComEnvio}>
-        <div className={s.formHeader}>
+      <form className={s.formularioDoacao} onSubmit={lidarComEnvio}>
+        <div className={s.cabecalhoFormulario}>
           <img
             src={iconeLivro}
             alt="Ícone de livro aberto com borda azul"
@@ -65,7 +65,7 @@ export default function QueroDoar() {
           type="text"
           name="titulo"
           placeholder="Título"
-          className={s.formInput}
+          className={s.campoFormulario}
           value={dadosFormulario.titulo}
           onChange={lidarComMudanca}
         />
@@ -74,7 +74,7 @@ export default function QueroDoar() {
           type="text" 
           name="categoria"
           placeholder="Categoria" 
-          className={s.formInput} 
+          className={s.campoFormulario} 
           value={dadosFormulario.categoria}
           onChange={lidarComMudanca}
         />
@@ -83,7 +83,7 @@ export default function QueroDoar() {
           type="text" 
           name="autor"
           placeholder="Autor" 
-          className={s.formInput} 
+          className={s.campoFormulario} 
           value={dadosFormulario.autor}
           onChange={lidarComMudanca}
         />
@@ -92,20 +92,24 @@ export default function QueroDoar() {
           type="text" 
           name="url_imagem"
           placeholder="Link da Imagem" 
-          className={s.formInput} 
+          className={s.campoFormulario} 
           value={dadosFormulario.url_imagem}
           onChange={lidarComMudanca}
         />
         
         <button 
           type="submit" 
-          className={s.buttonDoar}
+          className={s.botaoDoar}
           disabled={enviando}
         >
           {enviando ? "Enviando..." : "Doar"}
         </button>
 
-        {mensagemEnvio && <p className={s.mensagemEnvio}>{mensagemEnvio}</p>}
+        {mensagemEnvio && (
+          <p className={mensagemEnvio.includes("sucesso") ? s.mensagemSucesso : s.mensagemErro}>
+            {mensagemEnvio}
+          </p>
+        )}
       </form>
     </section>
   );
