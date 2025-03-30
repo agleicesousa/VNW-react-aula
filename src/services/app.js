@@ -1,21 +1,26 @@
-import axios from 'axios';
+import axios from "axios";
 
 const api = axios.create({
-    baseURL: import.meta.env.VITE_API_BASE_URL
+    baseURL: import.meta.env.VITE_API_BASE_URL,
 });
-
-const API_ENDPOINTS = {
-    LIVROS: import.meta.env.VITE_API_LIVROS_ENDPOINT
-};
 
 export const livroService = {
     create: async (livroData) => {
         try {
-            const response = await api.post(API_ENDPOINTS.LIVROS, [livroData]);
+            const response = await api.post(
+                import.meta.env.VITE_API_LIVROS_ENDPOINT, // Endpoint dinâmico
+                [livroData]
+            );
             return response.data;
         } catch (error) {
-            console.error('Erro ao cadastrar livro:', error.response?.data || error.message);
-            throw error;
+            console.error("Erro no cadastro:", {
+                status: error.response?.status,
+                data: error.response?.data,
+                endpoint: error.config?.url,
+            });
+            throw new Error(
+                "Falha ao cadastrar livro. Verifique os dados e tente novamente."
+            );
         }
     },
 };
