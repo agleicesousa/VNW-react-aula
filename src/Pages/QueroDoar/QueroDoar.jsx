@@ -16,11 +16,37 @@ export default function QueroDoar() {
           />
           <h2>Informações do Livro</h2>
         </div>
-        <input type="text" placeholder="Título" className={s.formInput} />
-        <input type="text" placeholder="Categoria" className={s.formInput} />
-        <input type="text" placeholder="Autor" className={s.formInput} />
-        <input type="text" placeholder="Link da Imagem" className={s.formInput} />
-        <button type="submit" className={s.buttonDoar}>Doar</button>
+
+        <input
+          type="text"
+          placeholder="Título"
+          className={s.formInput}
+        />
+
+        <input 
+          type="text" 
+          placeholder="Categoria" 
+          className={s.formInput} 
+        />
+        
+        <input 
+          type="text" 
+          placeholder="Autor" 
+          className={s.formInput} 
+        />
+        
+        <input 
+          type="text" 
+          placeholder="Link da Imagem" 
+          className={s.formInput} 
+        />
+        
+        <button 
+          type="submit" 
+          className={s.buttonDoar}
+        >
+          Doar
+        </button>
       </form>
     </section>
   );
