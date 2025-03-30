@@ -1,4 +1,5 @@
 @use "../../Components/GlobalStyle/globalStyle" as *;
+@use "sass:color";
 
 .queroDoarSection {
   min-height: 85vh;
@@ -54,13 +55,20 @@
   font-size: 1rem;
   transition: border-color 0.3s;
 
-  &:focus {
-    outline: none;
-    border-color: darken($primary-color, 10%);
-  }
-
   &::placeholder {
     color: #666;
+    opacity: 1;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+  }
+
+  &:focus {
+    outline: none;
+    border-color: color.adjust($primary-color, $lightness: -10%);
+    
+    &::placeholder {
+      opacity: 0;
+      transform: translateY(-5px);
+    }
   }
 }
 
@@ -78,7 +86,11 @@
   transition: background-color 0.3s;
 
   &:hover {
-    background-color: darken($primary-color, 10%);
+    background-color: color.adjust($primary-color, $lightness: -10%);
+  }
+
+  &:active {
+    transform: scale(0.98);
   }
 }
 
