@@ -12,7 +12,7 @@ export default function QueroDoar() {
   });
 
   const [enviando, setEnviando] = useState(false);
-  const [mensagemEnvio, setMensagemEnvio] = useState("");
+  const [mensagemEnvio, setMensagemEnvio] = useState({ texto: "", tipo: "" });
 
   const lidarComMudanca = (e) => {
     const { name, value } = e.target;
@@ -20,6 +20,11 @@ export default function QueroDoar() {
       ...prev,
       [name]: value
     }));
+  };
+
+  const validarURL = (url) => {
+    const padrao = /^https?:\/\/.+(\.jpg|\.png|\.webp|\.jpeg)$/i;
+    return padrao.test(url);
   };
 
   const lidarComEnvio = async (e) => {
@@ -30,7 +35,19 @@ export default function QueroDoar() {
     const camposVazios = camposObrigatorios.filter(campo => !dadosFormulario[campo].trim());
 
     if (camposVazios.length > 0) {
-      setMensagemEnvio(`Preencha todos os campos: ${camposVazios.join(', ')}`);
+      setMensagemEnvio({
+        texto: `Preencha todos os campos!`,
+        tipo: "erro"
+      });
+      return;
+    }
+
+    // Validação da URL
+    if (!validarURL(dadosFormulario.url_imagem)) {
+      setMensagemEnvio({
+        texto: "URL da imagem inválida. Use links que terminem com .jpg, .png ou .webp",
+        tipo: "erro"
+      });
       return;
     }
 
@@ -38,10 +55,16 @@ export default function QueroDoar() {
 
     try {
       await livroService.create(dadosFormulario);
-      setMensagemEnvio("Livro cadastrado com sucesso!");
+      setMensagemEnvio({
+        texto: "Livro cadastrado com sucesso!",
+        tipo: "sucesso"
+      });
       setDadosFormulario({ titulo: "", categoria: "", autor: "", url_imagem: "" });
     } catch (erro) {
-      setMensagemEnvio(erro.message || "Erro ao cadastrar livro");
+      setMensagemEnvio({
+        texto: erro.message || "Erro ao cadastrar livro",
+        tipo: "erro"
+      });
     } finally {
       setEnviando(false);
     }
@@ -55,10 +78,7 @@ export default function QueroDoar() {
       </p>
       <form className={s.formularioDoacao} onSubmit={lidarComEnvio}>
         <div className={s.cabecalhoFormulario}>
-          <img
-            src={iconeLivro}
-            alt="Ícone de livro aberto com borda azul"
-          />
+          <img src={iconeLivro} alt="Ícone de livro aberto com borda azul" />
           <h2>Informações do Livro</h2>
         </div>
 
@@ -106,10 +126,10 @@ export default function QueroDoar() {
           {enviando ? "Enviando..." : "Doar"}
         </button>
 
-        {mensagemEnvio && (
-          <p className={mensagemEnvio.includes("sucesso") ? s.mensagemSucesso : s.mensagemErro}>
-            {mensagemEnvio}
-          </p>
+        {mensagemEnvio.texto && (
+          <div className={`${s.mensagemFeedback} ${s[`mensagemFeedback--${mensagemEnvio.tipo}`]}`}>
+            {mensagemEnvio.texto}
+          </div>
         )}
       </form>
     </section>
