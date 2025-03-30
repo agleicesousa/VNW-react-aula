@@ -52,7 +52,7 @@ export default function QueroDoar() {
         Por favor, preencha o formulário com suas informações e as informações
         do Livro
       </p>
-      <form className={s.donationForm}>
+      <form className={s.donationForm} onSubmit={lidarComEnvio}>
         <div className={s.formHeader}>
           <img
             src={iconeLivro}
@@ -63,34 +63,49 @@ export default function QueroDoar() {
 
         <input
           type="text"
+          name="titulo"
           placeholder="Título"
           className={s.formInput}
+          value={dadosFormulario.titulo}
+          onChange={lidarComMudanca}
         />
 
         <input 
           type="text" 
+          name="categoria"
           placeholder="Categoria" 
           className={s.formInput} 
+          value={dadosFormulario.categoria}
+          onChange={lidarComMudanca}
         />
         
         <input 
           type="text" 
+          name="autor"
           placeholder="Autor" 
           className={s.formInput} 
+          value={dadosFormulario.autor}
+          onChange={lidarComMudanca}
         />
         
         <input 
           type="text" 
+          name="url_imagem"
           placeholder="Link da Imagem" 
           className={s.formInput} 
+          value={dadosFormulario.url_imagem}
+          onChange={lidarComMudanca}
         />
         
         <button 
           type="submit" 
           className={s.buttonDoar}
+          disabled={enviando}
         >
-          Doar
+          {enviando ? "Enviando..." : "Doar"}
         </button>
+
+        {mensagemEnvio && <p className={s.mensagemEnvio}>{mensagemEnvio}</p>}
       </form>
     </section>
   );
