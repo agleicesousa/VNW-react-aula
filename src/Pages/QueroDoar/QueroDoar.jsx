@@ -24,23 +24,24 @@ export default function QueroDoar() {
 
   const lidarComEnvio = async (e) => {
     e.preventDefault();
+
+    // Validação dos campos
+    const camposObrigatorios = ['titulo', 'categoria', 'autor', 'url_imagem'];
+    const camposVazios = camposObrigatorios.filter(campo => !dadosFormulario[campo].trim());
+
+    if (camposVazios.length > 0) {
+      setMensagemEnvio(`Preencha todos os campos: ${camposVazios.join(', ')}`);
+      return;
+    }
+
     setEnviando(true);
-    setMensagemEnvio("");
 
     try {
       await livroService.create(dadosFormulario);
       setMensagemEnvio("Livro cadastrado com sucesso!");
-      setDadosFormulario({
-        titulo: "",
-        categoria: "",
-        autor: "",
-        url_imagem: ""
-      });
-
+      setDadosFormulario({ titulo: "", categoria: "", autor: "", url_imagem: "" });
     } catch (erro) {
-      setMensagemEnvio("Erro ao cadastrar livro. Por favor, tente novamente.");
-      console.error("Erro no cadastro:", erro);
-      
+      setMensagemEnvio(erro.message || "Erro ao cadastrar livro");
     } finally {
       setEnviando(false);
     }
@@ -70,35 +71,35 @@ export default function QueroDoar() {
           onChange={lidarComMudanca}
         />
 
-        <input 
-          type="text" 
+        <input
+          type="text"
           name="categoria"
-          placeholder="Categoria" 
-          className={s.campoFormulario} 
+          placeholder="Categoria"
+          className={s.campoFormulario}
           value={dadosFormulario.categoria}
           onChange={lidarComMudanca}
         />
-        
-        <input 
-          type="text" 
+
+        <input
+          type="text"
           name="autor"
-          placeholder="Autor" 
-          className={s.campoFormulario} 
+          placeholder="Autor"
+          className={s.campoFormulario}
           value={dadosFormulario.autor}
           onChange={lidarComMudanca}
         />
-        
-        <input 
-          type="text" 
+
+        <input
+          type="text"
           name="url_imagem"
-          placeholder="Link da Imagem" 
-          className={s.campoFormulario} 
+          placeholder="Link da Imagem"
+          className={s.campoFormulario}
           value={dadosFormulario.url_imagem}
           onChange={lidarComMudanca}
         />
-        
-        <button 
-          type="submit" 
+
+        <button
+          type="submit"
           className={s.botaoDoar}
           disabled={enviando}
         >
