@@ -124,7 +124,7 @@
   form {
     border: none;
     width: auto;
-    height: 15vh;
+    height: 10vh;
   }
 }
 
@@ -166,7 +166,7 @@
   flex: 1;
   background: transparent;
   border: none;
-  padding: 10px 15px;
+  padding: 2px 2px;
   color: #fff;
   font-size: 1rem;
   outline: none;
@@ -322,7 +322,7 @@
 
 @media (min-width: 992px) {
   .logoText {
-    font-size: 1.8rem;
+    font-size: 1rem;
   }
 
   .navHeader .link {
