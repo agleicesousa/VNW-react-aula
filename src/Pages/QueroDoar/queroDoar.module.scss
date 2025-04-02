@@ -1,7 +1,7 @@
 @use "../../Components/GlobalStyle/globalStyle" as *;
 @use "sass:color";
 
-.queroDoarSection {
+.secaoQueroDoar {
   min-height: 85vh;
   display: flex;
   flex-direction: column;
@@ -18,7 +18,7 @@
   }
 }
 
-.donationForm {
+.formularioDoacao {
   border: 3px solid $primary-color;
   border-radius: 20px;
   width: 100%;
@@ -28,7 +28,7 @@
   flex-direction: column;
   gap: 1.5rem;
 
-  .formHeader {
+  .cabecalhoFormulario {
     display: flex;
     align-items: center;
     gap: 1rem;
@@ -46,7 +46,7 @@
   }
 }
 
-.formInput {
+.campoFormulario {
   width: 100%;
   height: 50px;
   border: 2px solid $primary-color;
@@ -72,7 +72,7 @@
   }
 }
 
-.buttonDoar {
+.botaoDoar {
   width: 100%;
   max-width: 200px;
   height: 60px;
@@ -92,10 +92,36 @@
   &:active {
     transform: scale(0.98);
   }
+
+  &:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+  }
+}
+
+.mensagemFeedback {
+  margin-top: 1rem;
+  padding: 0.75rem;
+  border-radius: 8px;
+  text-align: center;
+  font-weight: 500;
+  transition: all 0.3s ease;
+
+  &--sucesso {
+    background-color: rgba(0, 128, 0, 0.1);
+    color: #008000;
+    border: 1px solid #008000;
+  }
+
+  &--erro {
+    background-color: rgba(255, 0, 0, 0.1);
+    color: #ff0000;
+    border: 1px solid #ff0000;
+  }
 }
 
 @media (max-width: 768px) {
-  .queroDoarSection {
+  .secaoQueroDoar {
     min-height: auto;
     padding: 1.5rem;
     
@@ -105,10 +131,10 @@
     }
   }
 
-  .donationForm {
+  .formularioDoacao {
     padding: 1.5rem;
     
-    .formHeader {
+    .cabecalhoFormulario {
       flex-direction: column;
       text-align: center;
       gap: 0.5rem;
@@ -119,7 +145,7 @@
     }
   }
 
-  .buttonDoar {
+  .botaoDoar {
     height: 50px;
     font-size: 1.1rem;
   }
