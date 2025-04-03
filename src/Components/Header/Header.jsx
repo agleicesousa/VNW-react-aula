@@ -5,52 +5,52 @@ import logoLivro from "../../assets/logoLivro.png";
 import s from "./header.module.scss";
 
 export default function Header() {
-  const [menuOpen, setMenuOpen] = useState(false);
-  const [searchOpen, setSearchOpen] = useState(false);
-  const [isScrolled, setIsScrolled] = useState(false);
-  const [searchQuery, setSearchQuery] = useState("");
-  const location = useLocation();
-  const navigate = useNavigate();
+  const [menuAberto, setMenuAberto] = useState(false);
+  const [buscaAberta, setBuscaAberta] = useState(false);
+  const [estaRolando, setEstaRolando] = useState(false);
+  const [termoBusca, setTermoBusca] = useState("");
+  const localizacao = useLocation();
+  const navegar = useNavigate();
 
-  const isActive = (path) => location.pathname === path;
+  const estaAtivo = (caminho) => localizacao.pathname === caminho;
 
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 10);
+    const aoRolar = () => {
+      setEstaRolando(window.scrollY > 10);
     };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', aoRolar);
+    return () => window.removeEventListener('scroll', aoRolar);
   }, []);
 
-  const toggleMenuAndSearch = (menuState, searchState) => {
-    setMenuOpen(menuState);
-    setSearchOpen(searchState);
+  const alternarMenuEBusca = (estadoMenu, estadoBusca) => {
+    setMenuAberto(estadoMenu);
+    setBuscaAberta(estadoBusca);
   };
 
-  const handleSearch = (e) => {
+  const realizarBusca = (e) => {
     e.preventDefault();
-    if (searchQuery.trim()) {
-      navigate(`/livros-doados?q=${encodeURIComponent(searchQuery)}`);
-      setSearchQuery("");
-      setSearchOpen(false);
+    if (termoBusca.trim()) {
+      navegar(`/livros-doados?q=${encodeURIComponent(termoBusca)}`);
+      setTermoBusca("");
+      setBuscaAberta(false);
     }
   };
 
   return (
-    <header className={`${s.header} ${isScrolled ? s.scrolled : ''}`}>
+    <header className={`${s.header} ${estaRolando ? s.scrolled : ''}`}>
       <div className={s.container}>
         <section className={s.topRow}>
           <button 
             className={s.burgerMenu} 
-            onClick={() => toggleMenuAndSearch(!menuOpen, false)}
+            onClick={() => alternarMenuEBusca(!menuAberto, false)}
             aria-label="Abrir menu"
-            aria-expanded={menuOpen}
-            aria-controls="main-navigation"
+            aria-expanded={menuAberto}
+            aria-controls="navegacao-principal"
           >
-            {menuOpen ? <FaTimes size={24} /> : <FaBars size={24} />}
+            {menuAberto ? <FaTimes size={24} /> : <FaBars size={24} />}
           </button>
 
-          <Link to="/" className={s.logoLink} onClick={() => setMenuOpen(false)}>
+          <Link to="/" className={s.logoLink} onClick={() => setMenuAberto(false)}>
             <figure className={s.logoHeader}>
               <img
                 src={logoLivro}
@@ -68,49 +68,49 @@ export default function Header() {
             <li>
               <button
                 className={s.searchButton}
-                onClick={() => toggleMenuAndSearch(false, !searchOpen)}
+                onClick={() => alternarMenuEBusca(false, !buscaAberta)}
                 aria-label="Buscar"
-                aria-expanded={searchOpen}
-                aria-controls="mobile-search"
+                aria-expanded={buscaAberta}
+                aria-controls="busca-mobile"
               >
-                {searchOpen ? <FaTimes size={20} /> : <FaSearch size={20} />}
+                {buscaAberta ? <FaTimes size={20} /> : <FaSearch size={20} />}
               </button>
             </li>
           </menu>
         </section>
 
         <nav 
-          id="main-navigation"
-          className={`${s.navHeader} ${menuOpen ? s.active : ""}`} 
+          id="navegacao-principal"
+          className={`${s.navHeader} ${menuAberto ? s.active : ""}`} 
           aria-label="Navegação principal"
         >
           <ul>
             <li>
               <Link 
-                className={`${s.link} ${isActive("/") ? s.activeLink : ""}`} 
+                className={`${s.link} ${estaAtivo("/") ? s.activeLink : ""}`} 
                 to="/" 
-                onClick={() => setMenuOpen(false)}
-                aria-current={isActive("/") ? "page" : undefined}
+                onClick={() => setMenuAberto(false)}
+                aria-current={estaAtivo("/") ? "page" : undefined}
               >
                 Início
               </Link>
             </li>
             <li>
               <Link
-                className={`${s.link} ${isActive("/livros-doados") ? s.activeLink : ""}`}
+                className={`${s.link} ${estaAtivo("/livros-doados") ? s.activeLink : ""}`}
                 to="/livros-doados"
-                onClick={() => setMenuOpen(false)}
-                aria-current={isActive("/livros-doados") ? "page" : undefined}
+                onClick={() => setMenuAberto(false)}
+                aria-current={estaAtivo("/livros-doados") ? "page" : undefined}
               >
                 Livros Doados
               </Link>
             </li>
             <li>
               <Link
-                className={`${s.link} ${isActive("/quero-doar") ? s.activeLink : ""}`}
+                className={`${s.link} ${estaAtivo("/quero-doar") ? s.activeLink : ""}`}
                 to="/quero-doar"
-                onClick={() => setMenuOpen(false)}
-                aria-current={isActive("/quero-doar") ? "page" : undefined}
+                onClick={() => setMenuAberto(false)}
+                aria-current={estaAtivo("/quero-doar") ? "page" : undefined}
               >
                 Quero Doar
               </Link>
@@ -119,15 +119,15 @@ export default function Header() {
         </nav>
 
         <section className={s.desktopSearch} aria-label="Barra de pesquisa">
-          <form role="search" onSubmit={handleSearch}>
+          <form role="search" onSubmit={realizarBusca}>
             <div className={s.barraDeBusca}>
               <input
                 type="search"
                 placeholder="O que você procura?"
                 className={s.searchInput}
                 aria-label="Pesquisar livros"
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
+                value={termoBusca}
+                onChange={(e) => setTermoBusca(e.target.value)}
               />
               <button className={s.searchSubmit} type="submit" aria-label="Enviar pesquisa">
                 <FaSearch size={16} />
@@ -136,13 +136,13 @@ export default function Header() {
           </form>
         </section>
 
-        {searchOpen && (
+        {buscaAberta && (
           <section 
-            id="mobile-search" 
-            className={`${s.mobileSearch} ${searchOpen ? s.active : ""}`} 
+            id="busca-mobile" 
+            className={`${s.mobileSearch} ${buscaAberta ? s.active : ""}`} 
             aria-label="Barra de pesquisa móvel"
           >
-            <form role="search" onSubmit={handleSearch}>
+            <form role="search" onSubmit={realizarBusca}>
               <div className={s.barraDeBusca}>
                 <input
                   type="search"
@@ -150,8 +150,8 @@ export default function Header() {
                   className={s.searchInput}
                   aria-label="Pesquisar livros"
                   autoFocus
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
+                  value={termoBusca}
+                  onChange={(e) => setTermoBusca(e.target.value)}
                 />
                 <button className={s.searchSubmit} type="submit" aria-label="Enviar pesquisa">
                   <FaSearch size={16} />
