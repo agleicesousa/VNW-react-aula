@@ -31,6 +31,13 @@ export default function LivrosDoados() {
       <section className={s.livrosDoadosSection}>
         <h2>Livros Doados</h2>
 
+        {/* Mensagens de estado */}
+        {carregando && <p className={s.message}>Carregando livros...</p>}
+        {erro && <p className={s.errorMessage}>{erro}</p>}
+        {!carregando && !erro && livros.length === 0 && (
+          <p className={s.message}>Nenhum livro encontrado.</p>
+        )}
+
         <section className={s.containerCards}>
           <section>
             <img
