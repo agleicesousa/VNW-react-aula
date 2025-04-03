@@ -1,9 +1,31 @@
-// import { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import livroProtagonista from "../../assets/livroProtagonista.png";
 import s from "./livrosDoados.module.scss";
-// import { livroService } from "../../services/app";
+import { livroService } from "../../services/app";
 
 export default function LivrosDoados() {
+  const [livros, setLivros] = useState([]);
+  const [carregando, setCarregando] = useState(true);
+  const [erro, setErro] = useState(null);
+
+  useEffect(() => {
+    const buscarLivros = async () => {
+      try {
+        setCarregando(true);
+        const dados = await livroService.getAll();
+        setLivros(dados);
+        setErro(null);
+      } catch (err) {
+        console.error("Erro ao carregar livros:", err);
+        setErro("Erro ao carregar livros. Tente novamente mais tarde.");
+      } finally {
+        setCarregando(false);
+      }
+    };
+
+    buscarLivros();
+  }, []);
+
   return (
     <>
       <section className={s.livrosDoadosSection}>
