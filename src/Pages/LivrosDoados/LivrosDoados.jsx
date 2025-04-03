@@ -1,14 +1,20 @@
+// import { useState, useEffect } from "react";
 import livroProtagonista from "../../assets/livroProtagonista.png";
 import s from "./livrosDoados.module.scss";
+// import { livroService } from "../../services/app";
 
 export default function LivrosDoados() {
   return (
     <>
       <section className={s.livrosDoadosSection}>
         <h2>Livros Doados</h2>
+
         <section className={s.containerCards}>
           <section>
-            <img src={livroProtagonista} alt="Imagem do livro O Protagonista" />
+            <img
+              src={livroProtagonista}
+              alt="Imagem do livro O Protagonista"
+            />
             <div>
               <h3>O protagonista</h3>
               <p>Susanne Andrade</p>
