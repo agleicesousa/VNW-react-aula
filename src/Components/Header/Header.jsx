@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { FaBars, FaSearch, FaTimes } from "react-icons/fa";
 import logoLivro from "../../assets/logoLivro.png";
 import s from "./header.module.scss";
@@ -8,7 +8,9 @@ export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
   const location = useLocation();
+  const navigate = useNavigate();
 
   const isActive = (path) => location.pathname === path;
 
@@ -23,6 +25,15 @@ export default function Header() {
   const toggleMenuAndSearch = (menuState, searchState) => {
     setMenuOpen(menuState);
     setSearchOpen(searchState);
+  };
+
+  const handleSearch = (e) => {
+    e.preventDefault();
+    if (searchQuery.trim()) {
+      navigate(`/livros-doados?q=${encodeURIComponent(searchQuery)}`);
+      setSearchQuery("");
+      setSearchOpen(false);
+    }
   };
 
   return (
@@ -108,13 +119,15 @@ export default function Header() {
         </nav>
 
         <section className={s.desktopSearch} aria-label="Barra de pesquisa">
-          <form role="search" onSubmit={(e) => e.preventDefault()}>
+          <form role="search" onSubmit={handleSearch}>
             <div className={s.barraDeBusca}>
               <input
                 type="search"
                 placeholder="O que você procura?"
                 className={s.searchInput}
                 aria-label="Pesquisar livros"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
               />
               <button className={s.searchSubmit} type="submit" aria-label="Enviar pesquisa">
                 <FaSearch size={16} />
@@ -129,7 +142,7 @@ export default function Header() {
             className={`${s.mobileSearch} ${searchOpen ? s.active : ""}`} 
             aria-label="Barra de pesquisa móvel"
           >
-            <form role="search" onSubmit={(e) => e.preventDefault()}>
+            <form role="search" onSubmit={handleSearch}>
               <div className={s.barraDeBusca}>
                 <input
                   type="search"
@@ -137,6 +150,8 @@ export default function Header() {
                   className={s.searchInput}
                   aria-label="Pesquisar livros"
                   autoFocus
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
                 />
                 <button className={s.searchSubmit} type="submit" aria-label="Enviar pesquisa">
                   <FaSearch size={16} />
