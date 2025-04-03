@@ -36,7 +36,7 @@ export default function QueroDoar() {
   
     if (camposVazios.length > 0) {
       setMensagemEnvio({
-        texto: `Preencha todos os campos: ${camposVazios.join(', ')}`,
+        texto: `Preencha todos os campos!`,
         tipo: "erro"
       });
       return;

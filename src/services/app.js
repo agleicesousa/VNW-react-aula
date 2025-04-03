@@ -23,4 +23,18 @@ export const livroService = {
             );
         }
     },
+
+    getAll: async () => {
+        try {
+            const response = await api.get(import.meta.env.VITE_API_LIVROS_ENDPOINT);
+            return response.data;
+        } catch (error) {
+            console.error("Erro ao buscar livros:", {
+                status: error.response?.status,
+                data: error.response?.data,
+                endpoint: error.config?.url,
+            })
+            throw error;
+        }
+    }
 };
