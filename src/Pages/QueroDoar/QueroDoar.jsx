@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { toast } from "react-hot-toast";
 import iconeLivro from "../../assets/iconeLivro.png";
 import s from "./queroDoar.module.scss";
 import { livroService } from "../../services/app";
@@ -12,7 +13,6 @@ export default function QueroDoar() {
   });
 
   const [enviando, setEnviando] = useState(false);
-  const [mensagemEnvio, setMensagemEnvio] = useState({ texto: "", tipo: "" });
 
   const lidarComMudanca = (e) => {
     const { name, value } = e.target;
@@ -22,37 +22,26 @@ export default function QueroDoar() {
     }));
   };
 
-  const validarURL = (url) => {
-    const padrao = /^https?:\/\/.+(\.jpg|\.png|\.webp|\.jpeg)$/i;
-    return padrao.test(url);
-  };
-
   const lidarComEnvio = async (e) => {
     e.preventDefault();
-  
-    // Validação dos campos
+
+    // Validação leve no front
     const camposObrigatorios = ['titulo', 'categoria', 'autor', 'url_imagem'];
     const camposVazios = camposObrigatorios.filter(campo => !dadosFormulario[campo].trim());
-  
+
     if (camposVazios.length > 0) {
-      setMensagemEnvio({
-        texto: `Preencha todos os campos!`,
-        tipo: "erro"
-      });
+      toast.error("Preencha todos os campos!");
       return;
     }
-  
-    // Validação da URL
-    if (!validarURL(dadosFormulario.url_imagem)) {
-      setMensagemEnvio({
-        texto: "URL da imagem inválida. Use links que terminem com .jpg, .png ou .webp",
-        tipo: "erro"
-      });
+
+    const extensaoImagemValida = /\.(jpg|jpeg|png|webp)$/i.test(dadosFormulario.url_imagem);
+    if (!extensaoImagemValida) {
+      toast.error("A URL da imagem deve terminar com .jpg, .jpeg, .png ou .webp");
       return;
     }
-  
+
     setEnviando(true);
-  
+
     try {
       const dadosParaEnviar = {
         titulo: dadosFormulario.titulo,
@@ -60,18 +49,31 @@ export default function QueroDoar() {
         autor: dadosFormulario.autor,
         image_url: dadosFormulario.url_imagem
       };
-  
+
       await livroService.create(dadosParaEnviar);
-      setMensagemEnvio({
-        texto: "Livro cadastrado com sucesso!",
-        tipo: "sucesso"
+
+      toast.success("Livro cadastrado com sucesso!");
+
+      setDadosFormulario({
+        titulo: "",
+        categoria: "",
+        autor: "",
+        url_imagem: ""
       });
-      setDadosFormulario({ titulo: "", categoria: "", autor: "", url_imagem: "" });
     } catch (erro) {
-      setMensagemEnvio({
-        texto: erro.response?.data?.erro || "Erro ao cadastrar livro",
-        tipo: "erro"
-      });
+      const erroBack = erro.response?.data;
+      let mensagem = "Erro ao cadastrar livro";
+
+      if (erroBack?.detalhes) {
+        const camposComErro = Object.entries(erroBack.detalhes)
+          .map(([campo, mensagens]) => `${campo}: ${mensagens.join(", ")}`)
+          .join(" | ");
+        mensagem = camposComErro;
+      } else if (erroBack?.erro) {
+        mensagem = erroBack.erro;
+      }
+
+      toast.error(mensagem);
     } finally {
       setEnviando(false);
     }
@@ -132,12 +134,6 @@ export default function QueroDoar() {
         >
           {enviando ? "Enviando..." : "Doar"}
         </button>
-
-        {mensagemEnvio.texto && (
-          <div className={`${s.mensagemFeedback} ${s[`mensagemFeedback--${mensagemEnvio.tipo}`]}`}>
-            {mensagemEnvio.texto}
-          </div>
-        )}
       </form>
     </section>
   );
