@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import s from "./livrosDoados.module.scss";
 import { livroService } from "../../services/app";
+import { FaInfoCircle, FaExclamationTriangle } from "react-icons/fa";
 
 export default function LivrosDoados() {
   const [livros, setLivros] = useState([]);
@@ -53,10 +54,25 @@ export default function LivrosDoados() {
       <h2>Livros Doados</h2>
 
       {/* Mensagens de estado */}
-      {carregando && <p className={s.message}>Carregando livros...</p>}
-      {erro && <p className={s.errorMessage}>{erro}</p>}
+      {carregando && (
+        <p className={s.message}>
+          <FaInfoCircle style={{ marginTop: 2 }} />
+          Carregando livros...
+        </p>
+      )}
+
+      {erro && (
+        <p className={s.errorMessage}>
+          <FaExclamationTriangle style={{ marginTop: 2 }} />
+          {erro}
+        </p>
+      )}
+
       {!carregando && !erro && livros.length === 0 && (
-        <p className={s.message}>Nenhum livro encontrado.</p>
+        <p className={s.message}>
+          <FaInfoCircle style={{ marginTop: 2 }} />
+          Nenhum livro encontrado.
+        </p>
       )}
 
       {/* Só renderiza os cards se houver livros */}
