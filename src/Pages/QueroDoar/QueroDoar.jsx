@@ -24,6 +24,27 @@ export default function QueroDoar() {
 
   const lidarComEnvio = async (e) => {
     e.preventDefault();
+
+    const camposObrigatorios = ['titulo', 'categoria', 'autor', 'url_imagem'];
+    const camposVazios = camposObrigatorios.filter(campo => !dadosFormulario[campo].trim());
+
+    if (camposVazios.length > 0) {
+      setMensagemEnvio({
+        texto: "Preencha todos os campos!",
+        tipo: "erro"
+      });
+      return;
+    }
+
+    const extensaoImagemValida = /\.(jpg|jpeg|png|webp)$/i.test(dadosFormulario.url_imagem);
+    if (!extensaoImagemValida) {
+      setMensagemEnvio({
+        texto: "A URL da imagem deve terminar com .jpg, .jpeg, .png ou .webp",
+        tipo: "erro"
+      });
+      return;
+    }
+
     setEnviando(true);
 
     try {
@@ -48,12 +69,20 @@ export default function QueroDoar() {
         url_imagem: ""
       });
     } catch (erro) {
-      const erroMsg =
-        erro.response?.data?.erro ||
-        erro.message ||
-        "Erro ao cadastrar livro";
+      const erroBack = erro.response?.data;
+      let mensagem = "Erro ao cadastrar livro";
+
+      if (erroBack?.detalhes) {
+        const camposComErro = Object.entries(erroBack.detalhes)
+          .map(([campo, mensagens]) => `${campo}: ${mensagens.join(", ")}`)
+          .join(" | ");
+        mensagem = camposComErro;
+      } else if (erroBack?.erro) {
+        mensagem = erroBack.erro;
+      }
+
       setMensagemEnvio({
-        texto: erroMsg,
+        texto: mensagem,
         tipo: "erro"
       });
     } finally {
