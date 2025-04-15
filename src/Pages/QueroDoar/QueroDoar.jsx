@@ -22,37 +22,10 @@ export default function QueroDoar() {
     }));
   };
 
-  const validarURL = (url) => {
-    const padrao = /^https?:\/\/.+(\.jpg|\.png|\.webp|\.jpeg)$/i;
-    return padrao.test(url);
-  };
-
   const lidarComEnvio = async (e) => {
     e.preventDefault();
-  
-    // Validação dos campos
-    const camposObrigatorios = ['titulo', 'categoria', 'autor', 'url_imagem'];
-    const camposVazios = camposObrigatorios.filter(campo => !dadosFormulario[campo].trim());
-  
-    if (camposVazios.length > 0) {
-      setMensagemEnvio({
-        texto: `Preencha todos os campos!`,
-        tipo: "erro"
-      });
-      return;
-    }
-  
-    // Validação da URL
-    if (!validarURL(dadosFormulario.url_imagem)) {
-      setMensagemEnvio({
-        texto: "URL da imagem inválida. Use links que terminem com .jpg, .png ou .webp",
-        tipo: "erro"
-      });
-      return;
-    }
-  
     setEnviando(true);
-  
+
     try {
       const dadosParaEnviar = {
         titulo: dadosFormulario.titulo,
@@ -60,16 +33,27 @@ export default function QueroDoar() {
         autor: dadosFormulario.autor,
         image_url: dadosFormulario.url_imagem
       };
-  
+
       await livroService.create(dadosParaEnviar);
+
       setMensagemEnvio({
         texto: "Livro cadastrado com sucesso!",
         tipo: "sucesso"
       });
-      setDadosFormulario({ titulo: "", categoria: "", autor: "", url_imagem: "" });
+
+      setDadosFormulario({
+        titulo: "",
+        categoria: "",
+        autor: "",
+        url_imagem: ""
+      });
     } catch (erro) {
+      const erroMsg =
+        erro.response?.data?.erro ||
+        erro.message ||
+        "Erro ao cadastrar livro";
       setMensagemEnvio({
-        texto: erro.response?.data?.erro || "Erro ao cadastrar livro",
+        texto: erroMsg,
         tipo: "erro"
       });
     } finally {
