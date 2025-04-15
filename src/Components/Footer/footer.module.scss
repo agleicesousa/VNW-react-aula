@@ -3,28 +3,29 @@
 .footer {
   display: flex;
   flex-direction: column;
+  align-items: center;
   background-color: #005695;
   color: #fff;
 }
 
 .contatosFooter {
   display: flex;
-  justify-content: space-around;
   align-items: center;
-  padding: 1rem;
-  flex-wrap: wrap;
+  justify-content: space-between;
+  width: 87vw;
+  margin: 5px;
 
   .phone {
     font-size: 1.6rem;
-    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
   .socialLinks {
     display: flex;
     gap: 1.5rem;
     list-style: none;
-    padding: 0;
-    margin: 0;
     cursor: pointer;
 
     li {
@@ -50,6 +51,7 @@
   background-color: #232020;
   color: #fff;
   text-align: center;
+  width: 100%;
   padding: 0.5rem;
   font-size: 1rem;
 }
