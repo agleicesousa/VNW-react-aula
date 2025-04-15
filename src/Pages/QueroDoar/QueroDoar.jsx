@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { toast } from "react-hot-toast";
 import iconeLivro from "../../assets/iconeLivro.png";
 import s from "./queroDoar.module.scss";
 import { livroService } from "../../services/app";
@@ -12,7 +13,6 @@ export default function QueroDoar() {
   });
 
   const [enviando, setEnviando] = useState(false);
-  const [mensagemEnvio, setMensagemEnvio] = useState({ texto: "", tipo: "" });
 
   const lidarComMudanca = (e) => {
     const { name, value } = e.target;
@@ -25,23 +25,18 @@ export default function QueroDoar() {
   const lidarComEnvio = async (e) => {
     e.preventDefault();
 
+    // Validação leve no front
     const camposObrigatorios = ['titulo', 'categoria', 'autor', 'url_imagem'];
     const camposVazios = camposObrigatorios.filter(campo => !dadosFormulario[campo].trim());
 
     if (camposVazios.length > 0) {
-      setMensagemEnvio({
-        texto: "Preencha todos os campos!",
-        tipo: "erro"
-      });
+      toast.error("Preencha todos os campos!");
       return;
     }
 
     const extensaoImagemValida = /\.(jpg|jpeg|png|webp)$/i.test(dadosFormulario.url_imagem);
     if (!extensaoImagemValida) {
-      setMensagemEnvio({
-        texto: "A URL da imagem deve terminar com .jpg, .jpeg, .png ou .webp",
-        tipo: "erro"
-      });
+      toast.error("A URL da imagem deve terminar com .jpg, .jpeg, .png ou .webp");
       return;
     }
 
@@ -57,10 +52,7 @@ export default function QueroDoar() {
 
       await livroService.create(dadosParaEnviar);
 
-      setMensagemEnvio({
-        texto: "Livro cadastrado com sucesso!",
-        tipo: "sucesso"
-      });
+      toast.success("Livro cadastrado com sucesso!");
 
       setDadosFormulario({
         titulo: "",
@@ -81,10 +73,7 @@ export default function QueroDoar() {
         mensagem = erroBack.erro;
       }
 
-      setMensagemEnvio({
-        texto: mensagem,
-        tipo: "erro"
-      });
+      toast.error(mensagem);
     } finally {
       setEnviando(false);
     }
@@ -145,12 +134,6 @@ export default function QueroDoar() {
         >
           {enviando ? "Enviando..." : "Doar"}
         </button>
-
-        {mensagemEnvio.texto && (
-          <div className={`${s.mensagemFeedback} ${s[`mensagemFeedback--${mensagemEnvio.tipo}`]}`}>
-            {mensagemEnvio.texto}
-          </div>
-        )}
       </form>
     </section>
   );
